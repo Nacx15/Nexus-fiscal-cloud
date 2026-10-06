@@ -21,10 +21,7 @@ class ClientController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $clients = Client::query()
-            ->where(
-                'company_id',
-                $this->companyContext->id()
-            )
+	    ->forCurrentCompany()
             ->orderBy('tax_name')
             ->paginate(20);
 
@@ -32,25 +29,25 @@ class ClientController extends Controller
     }
 
     public function store(
-        StoreClientRequest $request
-    ): ClientResource {
-        $client = new Client();
+    	StoreClientRequest $request
+	) {
+	    $client = new Client();
 
-        $client->company_id =
-            $this->companyContext->id();
+	    $client->company_id =
+	        $this->companyContext->id();
 
-        $client->fill(
-            $request->validated()
-        );
-
-        $client->save();
-
-        return (new ClientResource($client))
-	    ->response()
-	    ->setStatusCode(
-	        Response::HTTP_CREATED
+	    $client->fill(
+	        $request->validated()
 	    );
-    }
+
+	    $client->save();
+
+	    return (new ClientResource($client))
+	        ->response()
+	        ->setStatusCode(
+	            Response::HTTP_CREATED
+	        );
+	}
 
     public function show(
         int $client
@@ -93,10 +90,7 @@ class ClientController extends Controller
         int $clientId
     ): Client {
         return Client::query()
-            ->where(
-                'company_id',
-                $this->companyContext->id()
-            )
+	    ->forCurrentCompany()
             ->findOrFail($clientId);
     }
 }

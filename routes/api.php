@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Tenancy\CompanyContext;
 use App\Http\Controllers\Api\V1\ClientController;
+use App\Http\Controllers\Api\V1\ProductController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -39,5 +40,10 @@ Route::middleware([
 	Route::apiResource(
 	    'clients',
 	    ClientController::class
+	);
+
+	Route::apiResource(
+	    'products',
+	    ProductController::class
 	);
     });
