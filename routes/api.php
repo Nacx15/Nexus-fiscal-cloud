@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Tenancy\CompanyContext;
 use App\Http\Controllers\Api\V1\ClientController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\CompanyFiscalProfileController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -46,4 +47,33 @@ Route::middleware([
 	    'products',
 	    ProductController::class
 	);
+
+	Route::prefix('company')
+	    ->group(function () {
+
+	        Route::get(
+	            '/fiscal-profile',
+	            [
+	                CompanyFiscalProfileController::class,
+	                'show',
+	            ]
+	        );
+
+	        Route::post(
+	            '/fiscal-profile',
+	            [
+	                CompanyFiscalProfileController::class,
+	                'store',
+	            ]
+	        );
+
+	        Route::patch(
+	            '/fiscal-profile',
+	            [
+	                CompanyFiscalProfileController::class,
+	                'update',
+	            ]
+	        );
+	    });
+
     });
