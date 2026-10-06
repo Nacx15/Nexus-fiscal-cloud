@@ -6,6 +6,7 @@ use App\Tenancy\CompanyContext;
 use App\Http\Controllers\Api\V1\ClientController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\CompanyFiscalProfileController;
+use App\Http\Controllers\Api\V1\FiscalSequenceController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -75,5 +76,37 @@ Route::middleware([
 	            ]
 	        );
 	    });
+
+	Route::get(
+	    '/fiscal-sequences',
+	    [
+	        FiscalSequenceController::class,
+	        'index',
+	    ]
+	);
+
+	Route::post(
+	    '/fiscal-sequences',
+	    [
+	        FiscalSequenceController::class,
+	        'store',
+	    ]
+	);
+
+	Route::get(
+	    '/fiscal-sequences/{fiscalSequence}',
+	    [
+	        FiscalSequenceController::class,
+	        'show',
+	    ]
+	);
+
+	Route::patch(
+	    '/fiscal-sequences/{fiscalSequence}',
+	    [
+	        FiscalSequenceController::class,
+	        'update',
+	    ]
+	);
 
     });
