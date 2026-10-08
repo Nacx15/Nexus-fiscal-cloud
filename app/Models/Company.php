@@ -54,4 +54,11 @@ class Company extends Model
 	        FiscalSequence::class
 	    );
 	}
+
+	public function fiscalCertificates(): HasMany
+	{
+	    return $this->hasMany(
+	        FiscalCertificate::class
+	    );
+	}
 }

@@ -23,3 +23,5 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 .env.testing
+/storage/app/private/fiscal-certificates/*
+!/storage/app/private/fiscal-certificates/.gitignore

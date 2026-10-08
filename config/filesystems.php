@@ -60,6 +60,16 @@ return [
             'report' => false,
         ],
 
+	'fiscal_certificates' => [
+	    'driver' => 'local',
+
+	    'root' => storage_path(
+	        'app/private/fiscal-certificates'
+	    ),
+
+	    'throw' => true,
+	],
+
     ],
 
     /*

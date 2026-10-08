@@ -13,9 +13,6 @@ services:
     volumes:
       - ./:/var/www/html
 
-    environment:
-      APP_ENV: local
-
     depends_on:
       mariadb:
         condition: service_healthy
