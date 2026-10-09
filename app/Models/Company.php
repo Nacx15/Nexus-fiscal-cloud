@@ -61,4 +61,11 @@ class Company extends Model
 	        FiscalCertificate::class
 	    );
 	}
+
+	public function invoices(): HasMany
+	{
+	    return $this->hasMany(
+	        Invoice::class
+	    );
+	}
 }

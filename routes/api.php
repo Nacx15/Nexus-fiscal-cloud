@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\CompanyFiscalProfileController;
 use App\Http\Controllers\Api\V1\FiscalSequenceController;
 use App\Http\Controllers\Api\V1\FiscalCertificateController;
 use App\Http\Controllers\Api\V1\FiscalReadinessController;
+use App\Http\Controllers\Api\V1\InvoiceController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -152,6 +153,29 @@ Route::middleware([
 	    ]
 	);
 
+	Route::get(
+	    '/invoices',
+	    [
+	        InvoiceController::class,
+	        'index',
+	    ]
+	);
+
+	Route::post(
+	    '/invoices',
+	    [
+	        InvoiceController::class,
+	        'store',
+	    ]
+	);
+
+	Route::get(
+	    '/invoices/{invoice}',
+	    [
+	        InvoiceController::class,
+	        'show',
+	    ]
+	);
 
     });
 
