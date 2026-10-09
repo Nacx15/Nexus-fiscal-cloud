@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Throwable;
+use App\Domain\Fiscal\Enums\FiscalCertificateStatus;
 
 final class RegisterFiscalCertificate
 {
@@ -193,7 +194,7 @@ final class RegisterFiscalCertificate
                         $metadata->validUntil;
 
                     $certificate->status =
-                        'inactive';
+                        FiscalCertificateStatus::Inactive;
 
                     $certificate->save();
 

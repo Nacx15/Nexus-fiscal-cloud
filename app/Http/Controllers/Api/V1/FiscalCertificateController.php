@@ -11,9 +11,17 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use App\Domain\Fiscal\Exceptions\InvalidFiscalCredential;
 use Illuminate\Validation\ValidationException;
+use App\Application\Fiscal\ActivateFiscalCertificate;
+use App\Tenancy\CompanyContext;
 
 class FiscalCertificateController extends Controller
 {
+
+	public function __construct(
+	    private readonly CompanyContext $companyContext
+	) {
+	}
+
     public function index(): AnonymousResourceCollection
     {
         $certificates =
@@ -79,4 +87,30 @@ class FiscalCertificateController extends Controller
             $certificate
         );
     }
+
+	public function activate(
+	    int $fiscalCertificate,
+	    ActivateFiscalCertificate $activate
+	): FiscalCertificateResource {
+	    try {
+	        $certificate =
+	            $activate->execute(
+	                $fiscalCertificate,
+	                $this->companyContext->id()
+	            );
+	    } catch (
+	        InvalidFiscalCredential $exception
+	    ) {
+	        throw ValidationException::withMessages([
+	            'certificate' => [
+	                $exception->getMessage(),
+	            ],
+	        ]);
+	    }
+
+	    return new FiscalCertificateResource(
+	        $certificate
+	    );
+	}
+
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\CompanyFiscalProfileController;
 use App\Http\Controllers\Api\V1\FiscalSequenceController;
 use App\Http\Controllers\Api\V1\FiscalCertificateController;
+use App\Http\Controllers\Api\V1\FiscalReadinessController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -131,6 +132,22 @@ Route::middleware([
 	    '/company/fiscal-certificates/{fiscalCertificate}',
 	    [
 	        FiscalCertificateController::class,
+	        'show',
+	    ]
+	);
+
+	Route::post(
+	    '/company/fiscal-certificates/{fiscalCertificate}/activate',
+	    [
+	        FiscalCertificateController::class,
+	        'activate',
+	    ]
+	);
+
+	Route::get(
+	    '/company/fiscal-readiness',
+	    [
+	        FiscalReadinessController::class,
 	        'show',
 	    ]
 	);

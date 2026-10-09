@@ -6,6 +6,7 @@ use App\Models\Concerns\BelongsToCompany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Domain\Fiscal\Enums\FiscalCertificateStatus;
 
 class FiscalCertificate extends Model
 {
@@ -37,6 +38,8 @@ class FiscalCertificate extends Model
             'valid_from' => 'datetime',
 
             'valid_until' => 'datetime',
+
+	    'status' => FiscalCertificateStatus::class,
         ];
     }
 
@@ -47,4 +50,29 @@ class FiscalCertificate extends Model
             'company_fiscal_profile_id'
         );
     }
+
+	public function isCurrentlyValid(): bool
+	{
+	    if (
+	        $this->valid_from === null ||
+	        $this->valid_until === null
+	    ) {
+	        return false;
+	    }
+
+	    $now = now();
+
+	    return $now->greaterThanOrEqualTo(
+	        $this->valid_from
+	    ) && $now->lessThanOrEqualTo(
+	        $this->valid_until
+	    );
+	}
+
+	public function isActive(): bool
+	{
+	    return $this->status
+	        === FiscalCertificateStatus::Active;
+	}
+
 }
