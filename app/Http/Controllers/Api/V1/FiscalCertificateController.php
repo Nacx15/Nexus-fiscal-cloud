@@ -9,6 +9,8 @@ use App\Http\Resources\FiscalCertificateResource;
 use App\Models\FiscalCertificate;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use App\Domain\Fiscal\Exceptions\InvalidFiscalCredential;
+use Illuminate\Validation\ValidationException;
 
 class FiscalCertificateController extends Controller
 {
@@ -25,33 +27,43 @@ class FiscalCertificateController extends Controller
         );
     }
 
-    public function store(
-        StoreFiscalCertificateRequest $request,
-        RegisterFiscalCertificate $register
-    ) {
-        $certificate =
-            $register->execute(
-                $request->file(
-                    'certificate_file'
-                ),
-                $request->file(
-                    'private_key_file'
-                ),
-                $request->string(
-                    'private_key_password'
-                )->toString()
-            );
+	public function store(
+	    StoreFiscalCertificateRequest $request,
+	    RegisterFiscalCertificate $register
+	) {
+	    try {
+	        $certificate =
+	            $register->execute(
+	                $request->file(
+	                    'certificate_file'
+	                ),
+	                $request->file(
+	                    'private_key_file'
+	                ),
+	                $request->string(
+	                    'private_key_password'
+	                )->toString()
+	            );
+	    } catch (
+	        InvalidFiscalCredential $exception
+	    ) {
+	        throw ValidationException::withMessages([
+	            'credential' => [
+	                $exception->getMessage(),
+	            ],
+	        ]);
+	    }
 
-        return (
-            new FiscalCertificateResource(
-                $certificate
-            )
-        )
-            ->response()
-            ->setStatusCode(
-                Response::HTTP_CREATED
-            );
-    }
+	    return (
+	        new FiscalCertificateResource(
+	            $certificate
+	        )
+	    )
+	        ->response()
+	        ->setStatusCode(
+	            Response::HTTP_CREATED
+	        );
+	}
 
     public function show(
         int $fiscalCertificate

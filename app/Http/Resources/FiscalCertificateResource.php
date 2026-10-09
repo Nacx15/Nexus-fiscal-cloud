@@ -30,6 +30,14 @@ class FiscalCertificateResource extends JsonResource
             'valid_until' =>
                 $this->valid_until,
 
+	    'currently_valid' =>
+                $this->valid_from !== null &&
+                $this->valid_until !== null &&
+                now()->betweenIncluded(
+                    $this->valid_from,
+                    $this->valid_until
+                ),
+
             'status' =>
                 $this->status,
 
