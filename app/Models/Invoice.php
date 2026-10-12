@@ -57,6 +57,11 @@ class Invoice extends Model
 	'stamp_error_code',
 	'stamp_error_message',
 
+	'fiscal_certificate_id',
+
+	'cfdi_version',
+	'export_code',
+
 	'status',
     ];
 
@@ -221,6 +226,13 @@ class Invoice extends Model
 
 	    $this->stamp_error_message =
 	        $errorMessage;
+	}
+
+	public function fiscalCertificate(): BelongsTo
+	{
+	    return $this->belongsTo(
+	        FiscalCertificate::class
+	    );
 	}
 
 

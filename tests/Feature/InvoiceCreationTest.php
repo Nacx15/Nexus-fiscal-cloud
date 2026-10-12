@@ -98,7 +98,7 @@ class InvoiceCreationTest extends TestCase
 		                'CLIENTE ORIGINAL SA DE CV',
 
 		            'rfc' =>
-		                'ABC010101ABC',
+		                'ABC010101AB0',
 		        ]);
 
 		$this->product =

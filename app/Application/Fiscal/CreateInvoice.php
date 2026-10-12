@@ -99,6 +99,15 @@ final class CreateInvoice
                 $invoice =
                     new Invoice();
 
+		$invoice->cfdi_version =
+		    '4.0';
+
+		$invoice->export_code =
+		    '01';
+
+		$invoice->fiscal_certificate_id = 
+		    null;
+
                 $invoice->company_id =
                     $company->id;
 

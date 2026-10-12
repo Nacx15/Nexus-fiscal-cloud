@@ -109,7 +109,7 @@ class FiscalCredentialInspectorTest extends TestCase
                     'EKU9003173C9.password.txt'
                 )
             ),
-            'ABC010101ABC'
+            'ABC010101AB0'
         );
     }
 }

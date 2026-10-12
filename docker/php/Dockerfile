@@ -12,12 +12,14 @@ RUN apt-get update \
         libzip-dev \
         libonig-dev \
         libxml2-dev \
+        libxslt1-dev \
     && docker-php-ext-install \
         bcmath \
         intl \
         mbstring \
         pcntl \
         pdo_mysql \
+        xsl \
         zip \
         opcache \
     && pecl install redis \

@@ -97,7 +97,7 @@ class ClientTenantIsolationTest extends TestCase
     {
         $payload = [
             'tax_name' => 'CLIENTE DEMO SA DE CV',
-            'rfc' => 'ABC010101ABC',
+            'rfc' => 'ABC010101AB0',
             'tax_regime' => '601',
             'postal_code' => '97000',
             'email' => 'cliente@example.com',
@@ -117,14 +117,14 @@ class ClientTenantIsolationTest extends TestCase
             ->assertCreated()
             ->assertJsonPath(
                 'data.rfc',
-                'ABC010101ABC'
+                'ABC010101AB0'
             );
 
         $this->assertDatabaseHas(
             'clients',
             [
                 'company_id' => $this->companyA->id,
-                'rfc' => 'ABC010101ABC',
+                'rfc' => 'ABC010101AB0',
             ]
         );
     }
@@ -134,12 +134,12 @@ class ClientTenantIsolationTest extends TestCase
         Client::factory()
             ->for($this->companyB)
             ->create([
-                'rfc' => 'ABC010101ABC',
+                'rfc' => 'ABC010101AB0',
             ]);
 
         $payload = [
             'tax_name' => 'CLIENTE EMPRESA A',
-            'rfc' => 'ABC010101ABC',
+            'rfc' => 'ABC010101AB0',
             'tax_regime' => '601',
             'postal_code' => '97000',
         ];
@@ -166,12 +166,12 @@ class ClientTenantIsolationTest extends TestCase
         Client::factory()
             ->for($this->companyA)
             ->create([
-                'rfc' => 'ABC010101ABC',
+                'rfc' => 'ABC010101AB0',
             ]);
 
         $payload = [
             'tax_name' => 'OTRO CLIENTE',
-            'rfc' => 'ABC010101ABC',
+            'rfc' => 'ABC010101AB0',
             'tax_regime' => '601',
             'postal_code' => '97000',
         ];

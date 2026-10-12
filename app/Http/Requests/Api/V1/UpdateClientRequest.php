@@ -58,6 +58,8 @@ class UpdateClientRequest extends FormRequest
                 'min:12',
                 'max:13',
 
+		'regex:/^[A-ZÑ&]{3,4}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$/',
+
                 Rule::unique('clients', 'rfc')
                     ->where(
                         fn ($query) => $query->where(

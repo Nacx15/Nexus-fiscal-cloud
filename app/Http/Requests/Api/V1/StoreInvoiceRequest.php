@@ -20,6 +20,19 @@ class StoreInvoiceRequest extends FormRequest
             app(CompanyContext::class)->id();
 
         return [
+
+	'cfdi_version' => [
+	    'prohibited',
+	],
+
+	'export_code' => [
+	    'prohibited',
+	],
+
+	'fiscal_certificate_id' => [
+	    'prohibited',
+	],
+
             'company_id' => [
                 'prohibited',
             ],

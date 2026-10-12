@@ -56,7 +56,7 @@ class CompanyFiscalProfileTest extends TestCase
     public function test_company_can_create_fiscal_profile(): void
     {
         $payload = [
-            'rfc' => 'ABC010101ABC',
+            'rfc' => 'ABC010101AB0',
             'legal_name' =>
                 'EMPRESA DEMO SA DE CV',
             'tax_regime' => '601',
@@ -76,7 +76,7 @@ class CompanyFiscalProfileTest extends TestCase
             ->assertCreated()
             ->assertJsonPath(
                 'data.rfc',
-                'ABC010101ABC'
+                'ABC010101AB0'
             );
 
         $this->assertDatabaseHas(
@@ -86,7 +86,7 @@ class CompanyFiscalProfileTest extends TestCase
                     $this->companyA->id,
 
                 'rfc' =>
-                    'ABC010101ABC',
+                    'ABC010101AB0',
             ]
         );
     }
@@ -128,7 +128,7 @@ class CompanyFiscalProfileTest extends TestCase
                 ->for($this->companyA)
                 ->create([
                     'rfc' =>
-                        'ABC010101ABC',
+                        'ABC010101AB0',
                 ]);
 
         CompanyFiscalProfile::factory()
@@ -153,7 +153,7 @@ class CompanyFiscalProfileTest extends TestCase
             )
             ->assertJsonPath(
                 'data.rfc',
-                'ABC010101ABC'
+                'ABC010101AB0'
             );
     }
 
@@ -213,7 +213,7 @@ class CompanyFiscalProfileTest extends TestCase
                 $this->companyB->id,
 
             'rfc' =>
-                'ABC010101ABC',
+                'ABC010101AB0',
 
             'legal_name' =>
                 'EMPRESA DEMO SA DE CV',

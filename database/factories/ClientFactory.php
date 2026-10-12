@@ -16,24 +16,60 @@ class ClientFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
-    {
-        return [
-            'company_id' => Company::factory(),
+	public function definition(): array
+	{
+	    $prefix =
+	        strtoupper(
+	            fake()->lexify('???')
+	        );
 
-            'tax_name' => fake()->company(),
+	    $date =
+	        fake()->date('ymd');
 
-            'rfc' => strtoupper(
-                fake()->unique()->bothify('???######???')
-            ),
+	    $homoclave =
+	        strtoupper(
+	            fake()->bothify('??')
+	        );
 
-            'tax_regime' => '601',
+	    $checkDigit =
+	        fake()->randomElement([
+	            '0',
+	            '1',
+	            '2',
+	            '3',
+	            '4',
+	            '5',
+	            '6',
+	            '7',
+	            '8',
+	            '9',
+	            'A',
+	        ]);
 
-            'postal_code' => fake()->numerify('#####'),
+	    return [
+	        'company_id' =>
+	            Company::factory(),
 
-            'email' => fake()->safeEmail(),
+	        'tax_name' =>
+	            fake()->company(),
 
-            'status' => 'active',
-        ];
-    }
+	        'rfc' =>
+	            $prefix
+	            . $date
+	            . $homoclave
+	            . $checkDigit,
+
+	        'tax_regime' =>
+	            '601',
+
+	        'postal_code' =>
+	            fake()->numerify('#####'),
+
+	        'email' =>
+	            fake()->safeEmail(),
+
+	        'status' =>
+	            'active',
+	    ];
+	}
 }

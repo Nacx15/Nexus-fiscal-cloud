@@ -25,3 +25,4 @@ Thumbs.db
 .env.testing
 /storage/app/private/fiscal-certificates/*
 !/storage/app/private/fiscal-certificates/.gitignore
+/storage/app/cfdi-resources/*
